@@ -1,62 +1,89 @@
 # Representing Measures
 
-**Stage**: Not presented yet to TC39
+**Stage**: 1
 
 **Champion**: Ben Allen [@ben-allen](https://github.com/ben-allen)
 
 **Author**: Ben Allen [@ben-allen](https://github.com/ben-allen)
 
 
-# Use cases and goals
+# Goals and needs
 
-There is a frequent need to keep numerical measurements together with their units of measurement. Moreover, there is a frequent need to convert measurements to different scales. We propose to create a new object for representing measurements and for converting measurements between scales.
+Modeling units of measure is useful for any task that involves measurements from the physical world. It can also be useful for other types of measurement; for example, measurements of currency amounts. 
 
-This proposal was originally inspired by, and is to some extent a prerequisite for, the Smart Units proposal for localizable measurements. However, because the need to represent measurements and to convert between measurement scales transcends the context of localization, we have decided to split it out into its own proposal. Below find some of the use cases we'd like to address.
+Common user needs that can be addressed by a robust API for measurements include, but are not limited to:
 
-* Localizing measurements. Content with measurements represented in unfamiliar scales &mdash; inches where centimeters are expected, temperatures given in degrees Fahrenheit where degrees Celsius are expected &mdash; can be incomprehensible to users. There are complexities involved in localizing measurements that can be more easily solved by creating a Measure object:
+* The need to convert measurements from one scale to another
 
-    - Need to represent mixed-unit measurements. For example, in the locale `"en-CA"` the heights of people are typically measured in feet and inches rather than in centimeters, despite this locale using the metric system for most types of measurements.
+* The need to format measurements into string representations
 
-    - Relatedly, localizing a measurement requires presenting that measurement at the appropriate precision. Formatting "3 miles" as "4.8280 kilometers" is poor localization; generally, people don't use four decimal places to give road distances. Additionally, the over-precise representation inappropriately implies that the original measurement itself was that precise.
+* Related to both of the above, the need to localize measurements. This can be relatively straightforward, as in the case of converting temperature measurements between Celsius and Fahrenheit, or Celsius and Kelvin. It can be more complex, though: notably, many locales represent measurements of certain types of object using mixed units
+    - For example, in the United States it is customary to represent the heights of people in feet and inches.
 
-* Localizing currency values.
-   
-    - Often users will want to keep track of money values together with the currency in which those values are denominated. As with the "feet and inches" example, sometimes it is useful to present currency values with the major and minor units separated, as in "19 dollars and 17 cents." See: [Design for currency and unit inputs that carry their values ](https://github.com/tc39/ecma402/issues/911#issuecomment-2238619851)
+* The need to represent and manipulate derived units, such as square meters for area and meters cubed for volume
 
-* General unit conversion. It is necessary when localizing measurements to perform mathematical operations converting between scales. However, the need to convert between measurement scales is, needless to say, not confined to internationalization/localization. It is common for internationalization-related tools to be misused for non-internationalization-related purposes. In the interest of minimizing this misuse, we would like to provide a limited unit-conversion tool that can perform the same conversions needed for localizing measurements.
+* The need to represent and manipulate compound units, such as velocity expressed in kilometers per hour or density expressed in unit of mass per unit of volume
 
+We propose to create a new object for representing measurements, for producing formatted string representations of measurements, and for converting measurements between scales.
+
+* The need to keep track of the precision of measured values. A measurement value represented with a large number of significant figures can imply that the measurements themselves are more precise than the apparatus used to take the measurement can support.
+
+* The need to represent currency values. Often users will want to keep track of money values together with the currency in which those values are denominated.
+    - As in the "feet and inches" example, sometimes it is useful to present currency values with the major and minor units separated, as in "19 dollars and 17 cents." See: [Design for currency and unit inputs that carry their values ](https://github.com/tc39/ecma402/issues/911#issuecomment-2238619851)
+
+* The need to define custom units.
+    - For example, CLDR includes units for velocity and acceleration, but none of the higher-order derivatives of position with respect to time.
 
 # Description
 
-We propose creating a new object, `Measure`, with the following properties. Note: ⚠️  all property/method names up for bikeshedding.
+We propose creating a new `Measure` API, with the following properties.
 
-* `unit`, a String representing the measurement unit.
-* `value`, the value (which could be a Number, a decimal String, a BigInt, a Decimal...) of the major unit in the measurement. In the case of a foot-and-inch measurement, this would be the number of feet.
-* `minorValue`, the value (if one exists) of the minor unit in the measurement. In the case of a foot-and-inch measurement, this would be the number of inches.
+Note: ⚠️  Serious questions remain about how the API should handle mixed units. The current version allows for mixed unit output, but *not* mixed unit input. This simplifies the API, at the cost of certain infelicities. The decision to disallow mixed unit input is subject to change if clear use cases can be identified.
+
+Note: ⚠️  All property/method names up for bikeshedding.
+
+* `unit`, a String representing the measurement unit. This could be expressed using the names used by [CLDR's units.xml](https://github.com/unicode-org/cldr/blob/main/common/supplemental/units.xml). The API design below presumes that these names are used. For example, if a user wanted to use the `convertTo` method to convert a length measurement to feet and inches, they would provide the string `"foot-and-inch"` as the value of the `unit` argument.
+
+* `value`, the numerical value of the measurement.
+
+* `precision`, a number indicating the precision of the measurement. This precision is (provisionally) represented in terms of the number of fractional digits displayed.
+
+Note: ⚠️  It may be appropriate to instead represent precision in terms of number of significant digits. Feedback on this matter is desired.
+
+Constructor:
+
+* `Measure(value, unit, precision)`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit.
 
 The object prototype would provide the following methods:
 
-* `convert(unit, precision)`. This method returns a Measure in the scale given in the parameter, with the value of this new Measure being the value of the Measure it is called on converted to the new scale. The `precision` parameter is optional; the default should be a relatively large number of digits of precision.
+* `convertTo(unit, precision)`. This method returns a Measure in the scale indicated by the `unit` parameter, with the value of the new Measure being the value of the Measure it is called on converted to the new scale. The `precision` parameter is optional.
 
-* `localeConvert(locale, usage)`. This method returns a Measure in the customary scale and at the customary precision for `locale`. Some locales use different measurement scales and precision based on the type of thing being measured and the measurement value itself; for example, in `en-US` it's customary to give measurements of road distance that are less than half of a mile in feet instead of miles.
+* `split()`. This method returns the measurement represented as an array of objects. The returned array for a Measure given in non-mixed units would contain one object with the following properties:
 
-We propose using a limited subset of the units and conversion factors in CLDR's [units.xml](https://github.com/unicode-org/cldr/blob/main/common/supplemental/units.xml) to determine what units and what conversions are supported. Since this proposal emerges from the context of internationalization/localization, we prefer that the units supported be the units useful for that context, with additional units only added sparingly.
+    - `value`, representing the numerical value
+    - `unit`, representing the unit of measurement.
+    - `precision`, representing the precision of the measurement.
+
+The returned array for a Measure given in mixed units would contain one element for each component of the Measure. The `precision` property would only be present in the object representing the smallest unit.
+
+* `convertToLocale(locale, usage)`. This method returns a Measure in the customary scale and at the customary precision for `locale`. The optional `usage` parameter can be used to indicate that the Measure should use the (potentially idiosyncratic) locale-specific customary unit of measurement for measurements of specific types of things. If, for example, the value was a measurement of a person's height, the value of `usage` would be (following the CLDR names) `"person-height"`. If the measurement is of a distance traveled by road, the value of `usage` would be `"road"`.
+
+* `toLocaleString(locale, usage)`. This method returns an appropriately formatted string for the locale given by `locale` and the usage given by `usage`, with `usage` being an optional parameter.
+
+* `toString()`. This method returns a string representation of the unit.
 
 # Examples
 
 ```js
 
 let m = new Measure(1.8, "meter");
-m.convert('foot', 2);
-// { value: 5.91, unit: "foot" }
-m.localeConvert("en-CA", "personHeight")
-// {value: 5, minorValue: 11}
-```
-
-```js
-let m = new Measure (4000, "foot");
-m.convert("kilometer");
-// {value:  1.2192, unit: "kilometer"}
-m.localeConvert('en-US', "road");
-// {value: 0.76, unit: "mile"}
+m.convertTo('foot', 2);
+// Returns a new Measure with the following properties:
+// `{value: 5.905511811023621, unit: "foot", precision: 2}`
+m.toString();
+// "5.91 feet"
+m.localeConvert("en-CA", "person-height")
+// `{value: 5.905511811023621, unit: "foot-and-inch", precision: 2}`
+m.toLocaleString("en-CA", "person-height")
+// "5 feet 11 inches"
 ```
