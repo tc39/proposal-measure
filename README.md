@@ -31,9 +31,6 @@ We propose to create a new object for representing measurements, for producing f
 * The need to represent currency values. Often users will want to keep track of money values together with the currency in which those values are denominated.
     - As in the "feet and inches" example, sometimes it is useful to present currency values with the major and minor units separated, as in "19 dollars and 17 cents." See: [Design for currency and unit inputs that carry their values ](https://github.com/tc39/ecma402/issues/911#issuecomment-2238619851)
 
-* The need to represent currency values. Often users will want to keep track of money values together with the currency in which those values are denominated.
-    - As in the "feet and inches" example, sometimes it is useful to present currency values with the major and minor units separated, as in "19 dollars and 17 cents." See: [Design for currency and unit inputs that carry their values ](https://github.com/tc39/ecma402/issues/911#issuecomment-2238619851)
-
 * The need to define custom units.
     - For example, CLDR includes units for velocity and acceleration, but none of the higher-order derivatives of position with respect to time.
 
@@ -90,3 +87,4 @@ m.localeConvert("en-CA", "person-height")
 m.toLocaleString("en-CA", "person-height")
 // "5 feet 11 inches"
 ```
+
