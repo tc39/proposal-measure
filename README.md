@@ -57,11 +57,11 @@ appears to resolve this problem by not handling precision at all.
 
 ## Constructor
 
-* `Measure(value, {unit, precision, exponent, usage})`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit. If no unit is provided, the value of unit is "dimensionless". Exponent indicates the power to which the underlying unit is raised; `exponent` of 2 on an object with "centimeter" as the `unit` value indicates centimeter-squared.
+* `Measure(value, {unit, precision, exponent, usage})`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit. If no unit is provided, the value of unit is `"dimensionless"`. `exponent` indicates the power to which the underlying unit is raised; `exponent` of 2 on an object with "centimeter" as the `unit` value indicates centimeter-squared.
 
 The object prototype would provide the following methods:
 
-* `convertTo(unit, precision)`. This method returns a Measure in the scale indicated by the `unit` parameter, with the value of the new Measure being the value of the Measure it is called on converted to the new scale. The `precision` parameter is optional.
+* `convertTo(unit, precision)`. This method returns a Measure in the scale indicated by the `unit` parameter, with the value of the new Measure being the value of the Measure it is called on converted to the new scale.
 
 * `toString()`. This method returns a string representation of the unit.
 
@@ -80,7 +80,7 @@ with mixed units.
 ### Mixed units
 
 We absolutely must include mixed units in Measurement, because they're absolutely 
-needed for Smart Units. We can't just include "foot-and-inch" in Smart Units
+needed for Smart Units. We can't just include foot-and-inch in Smart Units
 and not Measurement, since that invites specifically the type of abuse of 
 i18n tools for non-i18n purposes that we're trying to avoid with the Measure proposal
 
@@ -109,31 +109,31 @@ for now, and that both our unit names and the conversion constants are as in CLD
 Raise a Measurement to an exponent:
 
 ```js
-    let measurement = new Measurement(10, {unit: "centimeter"})
-    measurement.exp(3)
+    let measurement = new Measurement(10, {unit: "centimeter"});
+    measurement.exp(3);
     // { value: 1000, unit: "cubic-centimeter"}
 ```
 
 * Multiply/divide a measurement by a scalar
 
 ```js
-    let measurement = new Measurement(10, {unit: "centimeter"})
-    measurement.multiply(20)
-    // {value: 200, unit: "centimeter"}
-    measurement.divide(10)
-    // {value: 20, unit: "centimeter"}
+    let measurement = new Measurement(10, {unit: "centimeter"});
+    measurement.multiply(20);
+    // {value: 200, unit: "centimeter"};
+    measurement.divide(10);
+    // {value: 20, unit: "centimeter"};
 ```
 
 * Add/subtract two measurements of the same dimension
 
 ```js
-    let measurement1 = new Measurement(10, {unit: "centimeter"})
-    let measurement2 = new Measurement(5, {unit: "centimeter"})
-    measurement1.add(measurement2)
+    let measurement1 = new Measurement(10, {unit: "centimeter"});
+    let measurement2 = new Measurement(5, {unit: "centimeter"});
+    measurement1.add(measurement2);
     // {value: 15, unit: "centimeter"}
 
-    let measurement3 = new Measurement(5, {unit: "meter"})
-    measurement1.add(measurement3)
+    let measurement3 = new Measurement(5, {unit: "meter"});
+    measurement1.add(measurement3);
     // in the units of the Measurement that `add` is called on?
     // {value: 510, unit: "centimeter"}
 
@@ -143,9 +143,9 @@ Raise a Measurement to an exponent:
     // Precision is given in fractional digits. If doing calculation with units with
     // precision values, the precision should be set to the least precise (taking 
     // into account that units will have to be converted to the same scale)
-    let measurementWithPrecision1 = new Measurement(10.12, {unit: "centimeter", precision: 2}
-    let measurementWithPrecision2 = new Measurement(10.1234 {unit: "centimeter", precision: 4}
-    measurementWithPrecision1.add(measurementWithPrecision2);
+    let measurementWithPrecision1 = new Measurement(10.12, {unit: "centimeter", precision: 2};
+    let measurementWithPrecision2 = new Measurement(10.1234 {unit: "centimeter", precision: 4};
+    measurementWithPrecision1.add(measurementWithPrecision2);;
     // {value: 20.24, unit: "centimeter", precision: 2}
 
 ```
@@ -153,30 +153,29 @@ Raise a Measurement to an exponent:
 * Multiply / divide a Measurement by another Measurement 
 
 ```js
-    let gallons = new Measurement(2, {unit: "gallon"})
-    let miles = new Measurement(30, {unit: "mile"})
-    miles.divide(gallon)
+    let gallons = new Measurement(2, {unit: "gallon"});
+    let miles = new Measurement(30, {unit: "mile"});
+    miles.divide(gallon);
     // {value: 15, unit: "miles-per-gallon"}
 
-    let centimeters1 = new Measurement(10, {unit: "centimeter"})
-    let centimeters2 = new Measurement(5, {unit: "centimeter"})
-    centimeters1.multiply(centimeters2)
+    let centimeters1 = new Measurement(10, {unit: "centimeter"});
+    let centimeters2 = new Measurement(5, {unit: "centimeter"});
+    centimeters1.multiply(centimeters2);
     // {value: 50, unit: "square-centimeter" }
     // alternately: {value: 50, unit: "centimeter", exponent: 2}
 
-    centimeters1.divide(centimeters2)
+    centimeters1.divide(centimeters2);
     // {value: 10, unit: "dimensionless"}
 ```
 
 * Convert between scales
 
 ```js
-    let inches = new Measure(12, {unit: "inch"})
-    inches.convert("centimeter")
+    let inches = new Measure(12, {unit: "inch"});
+    inches.convertTo("centimeter");
     // {value: 30.48, unit: "centimeter}
-
     // using optional `precision` option
-    inches.convert("centimeter", 1);
+    inches.convertTo("centimeter", 1);
     // { value: 30.5, unit: "centimeter" }
 ```
 
