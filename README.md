@@ -11,6 +11,8 @@
 
 Modeling units of measure is useful for any task that involves measurements from the physical world. It can also be useful for other types of measurement; for example, measurements of currency amounts. 
 
+We propose to create a new object for representing measurements, for producing formatted string representations of measurements, and for converting measurements between scales.
+
 Common user needs that can be addressed by a robust API for measurements include, but are not limited to:
 
 * The need to convert measurements from one scale to another
@@ -24,8 +26,6 @@ Common user needs that can be addressed by a robust API for measurements include
 
 * The need to represent and manipulate compound units, such as velocity expressed in kilometers per hour or density expressed in unit of mass per unit of volume
 
-We propose to create a new object for representing measurements, for producing formatted string representations of measurements, and for converting measurements between scales.
-
 * The need to keep track of the precision of measured values. A measurement value represented with a large number of significant figures can imply that the measurements themselves are more precise than the apparatus used to take the measurement can support.
 
 * The need to represent currency values. Often users will want to keep track of money values together with the currency in which those values are denominated.
@@ -37,8 +37,6 @@ We propose to create a new object for representing measurements, for producing f
 # Description
 
 We propose creating a new `Measure` API, with the following properties.
-
-Note: ⚠️  Serious questions remain about how the API should handle mixed units. The current version allows for mixed unit output, but *not* mixed unit input. This simplifies the API, at the cost of certain infelicities. The decision to disallow mixed unit input is subject to change if clear use cases can be identified.
 
 Note: ⚠️  All property/method names up for bikeshedding.
 
@@ -54,7 +52,7 @@ Note: ⚠️  All property/method names up for bikeshedding.
 
 ## Constructor
 
-* `Measure(value, {unit, precision, exponent, usage})`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit.
+* `Measure(value, {unit, precision, exponent, usage})`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit. If no unit is provided, the value of unit is "dimensionless".
 
 The object prototype would provide the following methods:
 
@@ -86,7 +84,6 @@ The value of mixed units should be expressed in terms of the largest unit in the
 going with largest for the example below)
 
 ```js
-
     let footAndInch = new Measurement(5.5, {unit: "foot-and-inch"})
     footAndInch.toComponents()
     // [ {value: 5, unit: "foot"}, {value: 6, unit: "inch"}]
@@ -100,9 +97,6 @@ going with largest for the example below)
 Below is a list of mathematical operations that we should consider supporting. 
 Assume that we use [CLDR data](https://github.com/unicode-org/cldr/blob/main/common/supplemental/units.xml) 
 for now, and that both our unit names and the conversion constants are as in CLDR.
-
-This version places the options `unit`, `exponent`, and `precision` in an options bag. `unit` can be
-a required unit, or could default to `unit: "dimensionless"`
 
 ### Precision
 A big question is how we should handle precision. Currently this explainer assumes precision means fractional 
@@ -119,7 +113,7 @@ Raise a Measurement to an exponent:
     // { value: 1000, unit: "cubic-centimeter"}
 ```
 
-* Multiply/divide a measurement by a constant
+* Multiply/divide a measurement by a scalar
 
 ```js
     let measurement = new Measurement(10, {unit: "centimeter"})
@@ -188,6 +182,11 @@ Raise a Measurement to an exponent:
 * All of the above operations throw if incompatible dimensions are used, for example, adding 
 a measure of volume to a measure of speed.
 
+### User-defined units
+
+Users can specify values for `unit` other than the ones we support. The only mathematical 
+operations that apply to Measurements with non-standard units are the ones involving scalars.
+
 ### Methods shifted to Smart Units
 
 All of the localization-related methods are shifted to Smart Units. There can be
@@ -197,13 +196,11 @@ what sort of thing is being measured. The `usage` option is used for the method 
 * convertToLocale(locale)
 
 ```js
-
     let centimeters = Measurement(30.48, {unit: "centimeter", usage: "person-height"});
     centimeters.convertToLocale("en");
     // {value: 5.5, unit: "foot-and-inch"}
 
     centimeters.toLocaleString('en');
     // "5 feet and 6 inches"
-
 ```
 
