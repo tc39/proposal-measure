@@ -108,7 +108,7 @@ for now, and that both our unit names and the conversion constants are as in CLD
 
 Raise a Measurement to an exponent:
 
-'''js
+```js
     let measurement = new Measurement(10, {unit: "centimeter"})
     measurement.exp(3)
     // { value: 1000, unit: "cubic-centimeter"}
