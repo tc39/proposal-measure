@@ -163,9 +163,6 @@ Raise a Measurement to an exponent:
     centimeters1.multiply(centimeters2);
     // {value: 50, unit: "square-centimeter" }
     // alternately: {value: 50, unit: "centimeter", exponent: 2}
-
-    centimeters1.divide(centimeters2);
-    // {value: 10, unit: "dimensionless"}
 ```
 
 * Convert between scales
