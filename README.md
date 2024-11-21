@@ -50,9 +50,14 @@ Note: ⚠️  All property/method names up for bikeshedding.
 
 * `usage`, the type of thing being measured. Useful for localization.
 
+### Precision
+A big question is how we should handle precision. Currently this explainer assumes precision means fractional 
+digits, not because it seems good but instead because it seems least-bad. [The Java Units of Measurement API](https://unitsofmeasurement.github.io/unit-api/) 
+appears to resolve this problem by not handling precision at all.
+
 ## Constructor
 
-* `Measure(value, {unit, precision, exponent, usage})`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit. If no unit is provided, the value of unit is "dimensionless".
+* `Measure(value, {unit, precision, exponent, usage})`. Constructs a Measure with `value` as the numerical value of the Measure and `unit` as the unit of measurement, with the optional `precision` parameter used to specify the precision of the measurement. In the case of `unit` values indicating mixed units, the `value` is given in terms of the quantity of the *largest* unit. If no unit is provided, the value of unit is "dimensionless". Exponent indicates the power to which the underlying unit is raised; `exponent` of 2 on an object with "centimeter" as the `unit` value indicates centimeter-squared.
 
 The object prototype would provide the following methods:
 
@@ -98,10 +103,6 @@ Below is a list of mathematical operations that we should consider supporting.
 Assume that we use [CLDR data](https://github.com/unicode-org/cldr/blob/main/common/supplemental/units.xml) 
 for now, and that both our unit names and the conversion constants are as in CLDR.
 
-### Precision
-A big question is how we should handle precision. Currently this explainer assumes precision means fractional 
-digits, not because it seems good but instead because it seems least-bad. [The Java Units of Measurement API](https://unitsofmeasurement.github.io/unit-api/) 
-appears to resolve this problem by not handling precision at all.
 
 ### Proposed mathematical operations
 
@@ -187,11 +188,11 @@ a measure of volume to a measure of speed.
 Users can specify values for `unit` other than the ones we support. The only mathematical 
 operations that apply to Measurements with non-standard units are the ones involving scalars.
 
-### Methods shifted to Smart Units
+### `convertToLocale` method shifted to Smart Units
 
-All of the localization-related methods are shifted to Smart Units. There can be
-a `usage` option added to the options bag for Measurements in order to track
-what sort of thing is being measured. The `usage` option is used for the method below:
+The method `convertToLocale` is shifted to Smart Units. This method can use 
+a `usage` option for Measurements in order to properly localize measurements of
+certain types of thing.
 
 * convertToLocale(locale)
 
