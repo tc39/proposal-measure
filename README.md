@@ -193,7 +193,7 @@ certain types of thing.
 * convertToLocale(locale)
 
 ```js
-    let centimeters = Measurement(30.48, {unit: "centimeter", usage: "person-height"});
+    let centimeters = new Measurement(30.48, {unit: "centimeter", usage: "person-height"});
     centimeters.convertToLocale("en");
     // {value: 5.5, unit: "foot-and-inch"}
 
