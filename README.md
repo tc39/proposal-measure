@@ -80,7 +80,7 @@ with mixed units.
 ### Mixed units
 
 We absolutely must include mixed units in Measurement, because they're absolutely 
-needed for Smart Units. We can't just include foot-and-inch in Smart Units
+needed for [Smart Units](https://github.com/tc39/proposal-smart-unit-preferences). We can't just include foot-and-inch in Smart Units
 and not Measurement, since that invites specifically the type of abuse of 
 i18n tools for non-i18n purposes that we're trying to avoid with the Measure proposal
 
