@@ -257,7 +257,7 @@ location: https://github.com/tc39/proposal-measure/
 
   <emu-clause id="sec-amount.prototype.tostring">
     <h1>Amount.prototype.toString ( [ _options_ ] )</h1>
-    <p>This method returns a String value that renders the underling mathematical value according to its precision, as well as any unit or currency indicators, if present.</p>
+    <p>This method returns a String value that renders the underlying mathematical value according to its precision, as well as any unit or currency indicators, if present.</p>
     <p>It performs the following steps when called:</p>
     <emu-alg>
       1. Let _O_ be the *this* value.
