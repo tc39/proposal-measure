@@ -13,7 +13,3 @@ jobs:
       with:
         node-version: lts/*
     - run: npm run build
-    - name: commit changes
-      uses: elstudio/actions-js-build/commit@v4
-      with:
-        commitMessage: "fixup: [spec] `npm run build`"
