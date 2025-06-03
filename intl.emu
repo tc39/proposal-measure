@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<emu-clause id="sec-decimal-intl">
+  <h1>Amendments to the ECMAScript® 2024 Internationalization API Specification</h1>
+
+  <emu-note type="editor">
+    <p>
+      This section lists amendments which must be made to <a href="https://tc39.es/ecma402/">ECMA-402, the ECMAScript® 2024 Internationalization API Specification</a>.
+      Text to be added is marked <ins>like this</ins>, and text to be deleted is marked <del>like this</del>.
+      Blocks of unmodified text between modified sections are marked by [...].
+    </p>
+  </emu-note>
+
+  <emu-clause id="sup-properties-of-the-amount-prototype-object">
+    <h1>Properties of the Amount Prototype Object</h1>
+
+    <emu-clause id="sup-amount.prototype.tolocalestring">
+      <h1>Amount.prototype.toLocaleString ( [ _locales_ [ , _options_ ] ] )</h1>
+
+      <p>
+        This definition supersedes the definition provided in es2025, <emu-xref href="#sec-amount.prototype.tolocalestring"></emu-xref>.
+      </p>
+
+      <p>
+       This function performs the following steps when called:
+      </p>
+
+      <emu-alg>
+        1. Let _O_ be the *this* value.
+        1. Perform ? RequireInternalSlot(_O_, [[Decimal128Data]]).
+        1. Let _numberFormat_ be ? Construct(%Intl.NumberFormat%, &laquo; _locales_, _options_ &raquo;).
+        1. Return FormatNumeric(_numberFormat_, _O_.[[AmountData]]).
+      </emu-alg>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="pluralrules-objects">
+    <h1>PluralRules Objects</h1>
+
+    <emu-clause id="sec-intl-pluralrules-abstracts">
+      <h1>Abstract Operations for PluralRules Objects</h1>
+
+      <emu-clause id="sec-resolveplural" type="abstract operation">
+        <h1>
+          ResolvePlural (
+            _pluralRules_: an Intl.PluralRules,
+            _n_: a Number<ins> or an Object with an [[Decimal128Data]] internal slot</ins>,
+          ): a Record with fields [[PluralCategory]] (*"zero"*, *"one"*, *"two"*, *"few"*, *"many"*, or *"other"*) and [[FormattedString]] (a String)
+        </h1>
+        <dl class="header">
+          <dt>description</dt>
+          <dd>It rounds _x_ to an Intl mathematical value according to the internal slots of _intlObject_. The [[RoundedNumber]] field contains the rounded result value and the [[FormattedString]] field contains a String value representation of that result formatted according to the internal slots of _intlObject_.</dd>
+        </dl>
+        <emu-alg>
+          1. If <ins>_n_ is a Number and </ins>_n_ is not a finite Number, then
+            1. Let _s_ be ! ToString(_n_).
+            1. Return the Record { [[PluralCategory]]: *"other"*, [[FormattedString]]: _s_ }.
+          1. <ins>If _n_ is an Object with the [[AmountData]] and [[FractionDigits]] internal slots, then</ins>
+            1. <ins>Set _pluralRules_.[[MinimumFractionDigits]] to _n_.[[FractionDigits]].</ins>
+            1. <ins>Set _pluralRules_.[[MaximumFractionDigits]] to _n_.[[FractionDigits]].</ins>
+          1. <ins>If _n_ is an Object with the [[AmountData]] internal slot, else let _res_ be FormatNumericToString(_pluralRules_, ℝ(_n_)) else let</ins> <del>Let</del> _res_ be FormatNumericToString(_pluralRules_, ℝ(_n_)).
+          1. Let _s_ be _res_.[[FormattedString]].
+          1. Let _locale_ be _pluralRules_.[[Locale]].
+          1. Let _type_ be _pluralRules_.[[Type]].
+          1. Let _notation_ be _pluralRules_.[[Notation]].
+          1. Let _p_ be PluralRuleSelect(_locale_, _type_, _notation_, _s_).
+          1. Return the Record { [[PluralCategory]]: _p_, [[FormattedString]]: _s_ }.
+        </emu-alg>
+      </emu-clause>
+    </emu-clause>
+  </emu-clause>
+</emu-clause>
