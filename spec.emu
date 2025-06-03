@@ -24,7 +24,8 @@ location: https://github.com/tc39/proposal-measure/
   <h1>The Amount Object</h1>
   <emu-intro id="sec-amount-intro">
     <h1>Introduction</h1>
-    <p>An Amount is an object that wraps a digit String, representing a mathematical value, and a precision. One can intuitively understand an Amount as a number that, so to speak, knows its own precision.</p>
+    <p>An Amount is an object that wraps a decimal digit String, such as `"123.456"` and `1.2e+5`, representing a mathematical value, and a precision. One can intuitively understand an Amount as a number that, so to speak, knows its own precision.</p>
+    <p>The notation for mathematical values used by Amount are <dfn id="dfn-decimal-digit-string">decimal digit string</dfn>, which are Strings that adhere to the <emu-xref href="#prod-StrDecimalLiteral">StrDecimalLiteral</emu-xref> production, excepting *"NaN"*, *"Infinity", and *"-Infinity"*.</p>
   </emu-intro>
 
   <emu-clause id="sec-amount-abstract-operations">
@@ -32,12 +33,12 @@ location: https://github.com/tc39/proposal-measure/
 
     <emu-clause id="sec-amount-countsignificantdigits" type="abstract operation">
       <h1>CountSignificantDigits(
-        _s_: a digit String
+        _s_: a String
       ): a positive integer
       </h1>
       <dl class="header">
         <dt>description</dt>
-        <dd>It computes the number of significant digits in a given String, which is assumed to be a digit string in either decimal or exponential notation.</dd>
+        <dd>It computes the number of significant digits in a given <emu-xref href="#dfn-decimal-digit-string">decimal digit String</emu-xref>.</dd>
       </dl>
       <emu-alg>
         1. <mark>Return 42.</mark>
@@ -46,12 +47,12 @@ location: https://github.com/tc39/proposal-measure/
 
     <emu-clause id="sec-amount-countfractiondigits" type="abstract operation">
       <h1>CountFractionDigits(
-        _s_: a digit String
+        _s_: a String
       ): a non-negative integer
       </h1>
       <dl class="header">
         <dt>description</dt>
-        <dd>It computes the number of fractional digits in a given String, which is assumed to be a digit string in either decimal or exponential notation.</dd>
+        <dd>It computes the number of fractional digits in a given <emu-xref href="#dfn-decimal-digit-string">decimal digit String</emu-xref>.</dd>
       </dl>
       <emu-alg>
         1. <mark>Return 42.</mark>
