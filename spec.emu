@@ -88,7 +88,7 @@ location: https://github.com/tc39/proposal-measure/
       <h1>RoundToAmountDomain(
         _v_: a mathematical value,
         optional _roundingMode_: a rounding mode
-      ): ~minus-zero~ or a mathematical value
+      ): a mathematical value
       </h1>
       <dl class="header">
         <dt>description</dt>
@@ -101,8 +101,6 @@ location: https://github.com/tc39/proposal-measure/
           1. If _roundingMode_ is *"floor"*, set _reverseRoundingMode_ to *"ceil"*.
           1. If _roundingMode_ is *"ceil"*, set _reverseRoundingMode_ to *"floor"*.
           1. Let _d_ be RoundToAmountDomain(–_v_, _reverseRoundingMode_).
-          1. Assert: _d_ is a mathematical value.
-          1. If _d_ is 0, return ~minus-zero~.
           1. Return –_d_.
         1. If _v_ > MAX_INTEGER, return MAX_INTEGER.
         1. Let _e_ be the unique integer such that 10<sup>_e_</sup> ≤ _v_ < 10<sup>_e_+1</sup>.
@@ -208,14 +206,13 @@ location: https://github.com/tc39/proposal-measure/
         <p>Given a Number argument, the constructor converts it to a String using the <emu-xref href="#sec-number.prototype.tostring">toString</emu-xref> method (with no arguments). In some cases, this may not be desired; consider passing in a String form of a Number using the <emu-xref href="#sec-number.prototype.tofixed">toFixed</emu-xref> or <emu-xref href="#sec-number.prototype.toprecision">toPrecision</emu-xref> methods.</p>
       </emu-note>
       <emu-clause id="sec-runtime-semantics-stringdecimalvalue" type="sdo">
-        <h1>Runtime Semantics: StringDecimalValue ( ): either a normal completion containing either a mathematical value or ~minus-zero~ or a throw completion</h1>
+        <h1>Runtime Semantics: StringDecimalValue ( ): either a normal completion containing a mathematical value or a throw completion</h1>
         <dl class="header">
         </dl>
         <emu-grammar>StrDecimalLiteral ::: `-` StrUnsignedDecimalLiteral</emu-grammar>
         <emu-alg>
           1. Let _a_ be ? StringAmountValue of |StrUnsignedDecimalLiteral|.
           1. Assert: _a_ is finite.
-          1. If _a_ is 0, return ~minus-zero~.
           1. Return −_a_.
         </emu-alg>
         <emu-grammar>StrUnsignedDecimalLiteral ::: `Infinity`</emu-grammar>
