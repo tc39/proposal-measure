@@ -257,7 +257,7 @@ location: https://github.com/tc39/proposal-measure/
         1. If NewTarget is *undefined*, throw a *TypeError* exception.
         1. Let _toParse_ be *undefined*.
         1. If _x_ is a BigInt, set _toParse_ to BigInt::toString(_x_, 10).
-        1. Else, if _x_ is a Number, set _toParse_ to Number::toString(_x_, 10).
+        1. Else if _x_ is a Number, set _toParse_ to Number::toString(_x_, 10).
         1. Otherwise, if _x_ is a String, set _toParse_ to _x_.
         1. If _toParse_ is not a String, throw a *TypeError* exception.
         1. If _toParse_ is in « *"NaN"*, *"Infinity"*, *"-Infinity"* », throw a *RangeError* exception.
