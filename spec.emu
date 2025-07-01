@@ -126,7 +126,7 @@ location: https://github.com/tc39/proposal-measure/
         </dl>
         <emu-alg>
           1. If _s_ contains a *"."* character, then
-            1. Let _fractionDigits_ be the substring of _s_ after the first *"."* character.
+            1. Let _fractionDigits_ be the substring of _s_ after the first *"."* character up to the first occurrence of *"e"* or *"E"* in _s_, if any.
             1. Let _l_ be the length of _fractionDigits_.
             1. Return _l_.
           1. Otherwise:
