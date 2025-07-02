@@ -14,19 +14,18 @@ We propose to create a new object for representing measurements, for producing f
 
 Common user needs that can be addressed by a robust API for measurements include, but are not limited to:
 
-* The need to convert measurements from one scale to another
+* The need to keep track of the precision of measured values. A measurement value represented with a large number of significant figures can imply that the measurements themselves are more precise than the apparatus used to take the measurement can support.
 
 * The need to format measurements into string representations
 
-* The need to keep track of the precision of measured values. A measurement value represented with a large number of significant figures can imply that the measurements themselves are more precise than the apparatus used to take the measurement can support.
-
 ## Description
 
-We propose creating a new `Amount` API, with the following properties.
+We propose creating a new `Amount` API, whose values will be immutable and have the following properties:
 
 Note: ⚠️  All property/method names up for bikeshedding.
 
-* `value` (String), the numerical value of the measurement, representing an exact mathematical value;
+* `value` (String): The numerical value of the measurement, representing an exact mathematical value;
+* `unit` (String or undefined): The unit of measurement with which number should be understood (with *undefined* indicating "none supplied")
 * `significantDigits` (Number): how many significant digits does this value contain? (Should be a positive integer)
 * `fractionalDigits` (Number): how many digits are required to fully represent the part of the fractional part of the underlying mathematical value. (Should be a non-negative integer.)
 
@@ -40,17 +39,43 @@ A big question is how we should handle precision. When constructing an Amount, b
 
 The object prototype would provide the following methods:
 
-* `toString()`. This method returns a string representation of the unit.
+* `toString()`: Returns a string representation of the measurement with any unit put in brackets (e.g., `"1.23[kg]`).
+* `toLocaleString()`: Return a string representation appropriate to the locale (e.g., `"1,23[kg]"` in locales that use a comma as a fraction separator)
 * `with(opts)`: Represent the same underlying mathematical value, possibly with different precision.
 
 ### Examples
+
+Let's construct a Measurement, query its properties, and render it. First, we'll work with a bare number (no unit):
 
 ```js
 let a = new Amount("123.456");
 a.fractionDigits; // 3
 a.significantDigits; // 6
-a.with({ fractionDigits: 4 }).toString(); "123.4560"
+a.with({ fractionDigits: 4 }).toString(); // "123.4560"
 ```
+
+Notice that "upgrading" the precision of a Measurement essentially appends trailing zeroes to the number.
+
+#### Rounding
+
+If one downgrades the precision of a Measurement, rounding will occur. (Upgrading just adds trailing zeroes.)
+
+```js
+let a = new Amount("123.456");
+a.with({ significantDigits: 5 }).toString(); // "123.46"
+```
+
+By default, we use the round-ties-to-even rounding mode, which is used by IEEE 754 standard, and thus by Number and [Decimal](https://github.com/tc39/proposal-decimal). One can specify a rounding mode:
+
+```js
+let b = new Amount("123.456");
+a.with({ significantDigits: 5, roundingMode: "truncate" }).toString(); // "123.45"
+```
+
+## Units
+
+A core piece of functionality for the Measure proposal is to support units (`mile`, `kilogram`, etc.) as well as currency (`EUR`, `USD`, etc.). One can construct these
+
 
 ## Related but out-of-scope features
 
@@ -68,9 +93,9 @@ Below is a list of mathematical operations that one could consider supporting. H
 
 could be imagined, but are out-of-scope in this proposal. This proposal focuses on on the numeric core that future proposals can build on.
 
-### Units
+### Unit conversion
 
-One naturally might want to include units (`mile`, `kilogram`, etc.) but we currently envision that functionality being part of the [Smart Units](https://github.com/tc39/proposal-smart-unit-preferences) proposal. This implies that converting from unit to another is not supported, as well as converting measurements between scales (e.g., converting grams to kilograms). Our work is designed to be a foundation for such ideas.
+One might want to convert a Measurement from one unit (e.g., miles) to another (e.g., kilometers). However, we envision that functionality as part of the [Smart Units](https://github.com/tc39/proposal-smart-unit-preferences) proposal. This implies that converting from unit to another is not supported, as well as converting measurements between scales (e.g., converting grams to kilograms). Our work here in the Measure proposal is designed to be a foundation for such ideas.
 
 ## Related/See also
 
