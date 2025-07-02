@@ -389,7 +389,6 @@ location: https://github.com/tc39/proposal-measure/
       1. If _options_ is not an Object, throw a *TypeError* exception.
       1. Let _v_ be _O_.[[AmountData]].
       1. Let _s_ be Number::toString(_v_, 10).
-      1. Return ? Call (%Amount%, _O_, « _s_, _options_ »).
       1. Return OrdinaryObjectCreate(*"%Amount.prototype%"*, « [[AmountData]], [[SignificantDigits]], [[FractionDigits]], [[Unit]] »).
     </emu-alg>
   </emu-clause>
