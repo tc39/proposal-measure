@@ -357,14 +357,14 @@ location: https://github.com/tc39/proposal-measure/
       1. Let _O_ be the *this* value.
       1. Perform ? RequireInternalSlot(_O_, [[Value]]).
       1. Perform ? RequireInternalSlot(_O_, [[FractionDigits]]).
-      1. If _options_ is not *undefined*, then
-        1. If _options_ is not an Object, throw a *TypeError* exception.
+      1. Let _options_ be ? GetOptionsObject(_options_).
+      1. Let _formatBareNumber_ be ? GetOption(_options_, *"numberOnly"*, ~boolean~, ~empty~, *false*).
       1. Let _v_ be _O_.[[Value]].
       1. Let _numDigits_ be _O_.[[FractionDigits]].
       1. Assert: _numDigits_ is a non-negative integer.
-      1. Let _options_ be ? GetOptionsObject(_options_).
       1. Let _roundingMode_ be ? GetOption(_options_, *"roundingMode"*, ~string~, « *"ceil"*, *"floor"*, *"expand"*, *"trunc"*, *"halfCeil"*, *"halfFloor"*, *"halfExpand"*, *"halfTrunc"*, *"halfEven"* », *"halfEven"*).
       1. Let _s_ be RenderMVWithFractionDigits(_v_, _numDigits_, _roundingMode_).
+      1. If _formatBareNumber_ is *true*, return _s_.
       1. Assert: Either _O_.[[Unit]] nor _O_.[[Currency]] are not *undefined*.
       1. If _O_.[[Unit]] is *undefined*, let _marker_ be _O_.[[Currency]] else let _marker_ be _O_.[[Unit]].
       1. Return the string concatenation of _s_, *"["*, _marker_, and *"]"*.
