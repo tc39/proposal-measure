@@ -364,9 +364,7 @@ location: https://github.com/tc39/proposal-measure/
       1. Assert: _numDigits_ is a non-negative integer.
       1. Let _options_ be ? GetOptionsObject(_options_).
       1. Let _roundingMode_ be ? GetOption(_options_, *"roundingMode"*, ~string~, « *"ceil"*, *"floor"*, *"expand"*, *"trunc"*, *"halfCeil"*, *"halfFloor"*, *"halfExpand"*, *"halfTrunc"*, *"halfEven"* », *"halfEven"*).
-      1. Let _fractionDigits_ be ? GetOption(_options_, *"fractionDigits"*, ~number~, ~empty~, *+0*<sub>𝔽</sub>).
-      1. If _fractionDigits_️ is *NaN*, *+∞*<sub>𝔽</sub> or *-∞*<sub>𝔽</sub>, through a *RangeError* exception.
-      1. Let _s_ be RenderMVWithFractionDigits(_v_, ℝ(_fractionDigits_), _roundingMode_).
+      1. Let _s_ be RenderMVWithFractionDigits(_v_, _numDigits_, _roundingMode_).
       1. If _O_.[[Unit]] is *undefined*, return _s_.
       1. Otherwise, return the string concatenation of _s_, *"["*, _O_.[[Unit]], and *"]"*.
     </emu-alg>
