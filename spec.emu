@@ -107,8 +107,7 @@ location: https://github.com/tc39/proposal-measure/
             1. Let _l_ be the length of _fractionDigits_.
             1. Return _l_.
           1. Otherwise:
-            1. Let _l_ be the length of _s_.
-            1. Return _l_.
+            1. Return 0.
         </emu-alg>
       </emu-clause>
     </emu-clause>
