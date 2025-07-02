@@ -385,9 +385,13 @@ location: https://github.com/tc39/proposal-measure/
       1. Let _O_ be the *this* value.
       1. Perform ? RequireInternalSlot(_O_, [[Value]]).
       1. If _options_ is not an Object, throw a *TypeError* exception.
-      1. Let _v_ be _O_.[[Value]].
-      1. Let _s_ be Number::toString(_v_, 10).
-      1. Return OrdinaryObjectCreate(*"%Amount.prototype%"*, « [[Value]], [[SignificantDigits]], [[FractionDigits]], [[Unit]] »).
+      1. Let _N_ be OrdinaryObjectCreate(*"%Amount.prototype%"*, « [[Value]], [[SignificantDigits]], [[FractionDigits]], [[Unit]], [[Currency]] »).
+      1. Set _N_.[[Value]] to _O_.[[Value]].
+      1. Set _N_.[[Unit]] to _O_.[[Unit]].
+      1. Set _N_.[[Currency]] to _N_.[[Currency]].
+      1. Set _N_.[[FractionDigits]] to <mark>42</mark>.
+      1. Set _N_.[[SignificantDigits]] to <mark>42</mark>.
+      1. Return _N_.
     </emu-alg>
   </emu-clause>
 </emu-clause>
