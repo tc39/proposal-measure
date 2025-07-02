@@ -155,7 +155,7 @@ location: https://github.com/tc39/proposal-measure/
         <emu-alg>
           1. If _roundingMode_ is *undefined*, set _roundingMode_ to *"halfEven"*.
           1. If _v_ = 0, return 0.
-          1. If v < 0, then
+          1. If v &lt; 0, then
             1. Let _reverseRoundingMode_ be _roundingMode_.
             1. If _roundingMode_ is *"floor"*, set _reverseRoundingMode_ to *"ceil"*.
             1. If _roundingMode_ is *"ceil"*, set _reverseRoundingMode_ to *"floor"*.
