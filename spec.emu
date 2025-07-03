@@ -136,7 +136,7 @@ location: https://github.com/tc39/proposal-measure/
           1. If _fraction_ > 0.5, return _mHigh_.
           1. If _roundingMode_ is *"halfTrunc"*, return _mLow_.
           1. If _roundingMode_ is *"halfExpand"*, return _mHigh_.
-          1. If _mLow_ is an even integer, return _mLow_.
+          1. If _mLow_ is even, return _mLow_.
           1. Return _mHigh_.
         </emu-alg>
       </emu-clause>
