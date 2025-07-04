@@ -8,9 +8,10 @@
 
 ## Goals and needs
 
-Modeling measurements with a precision is useful for any task that involves measurements from the physical world. It can also be useful for other types of measurement; for example, (measurements of) currency amounts.
-
-We propose to create a new object for representing measurements, for producing formatted string representations of measurements.
+Modeling amounts with a precision is useful for any task that involves physical quantities.
+It can also be useful for other types of real-world amounts, such as currencies.
+We propose creating a new object for representing amounts,
+and for producing formatted string representations thereof.
 
 Common user needs that can be addressed by a robust API for measurements include, but are not limited to:
 
