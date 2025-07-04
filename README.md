@@ -92,7 +92,8 @@ Below is a list of mathematical operations that one could consider supporting. H
 * multiply/divide an Amount by another Amount
 * Convert between scales (e.g., convert from grams to kilograms)
 
-could be imagined, but are out-of-scope in this proposal. This proposal focuses on on the numeric core that future proposals can build on.
+could be imagined, but are out-of-scope in this proposal.
+This proposal focuses on the numeric core that future proposals can build on.
 
 ### Unit conversion
 
