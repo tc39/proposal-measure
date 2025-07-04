@@ -44,21 +44,22 @@
         <h1>
           ResolvePlural (
             _pluralRules_: an Intl.PluralRules,
-            _n_: a Number<ins> or an Object with an [[Decimal128Data]] internal slot</ins>,
+            _n_: a Number<ins> or a digit String</ins>,
           ): a Record with fields [[PluralCategory]] (*"zero"*, *"one"*, *"two"*, *"few"*, *"many"*, or *"other"*) and [[FormattedString]] (a String)
         </h1>
         <dl class="header">
           <dt>description</dt>
-          <dd>It rounds _x_ to an Intl mathematical value according to the internal slots of _intlObject_. The [[RoundedNumber]] field contains the rounded result value and the [[FormattedString]] field contains a String value representation of that result formatted according to the internal slots of _intlObject_.</dd>
+          <dd>The returned Record contains two string-valued fields describing _n_ according to the effective locale and the options of _pluralRules_: [[PluralCategory]] characterizing its <emu-xref href="#sec-pluralruleselect">plural category</emu-xref>, and [[FormattedString]] containing its formatted representation.</dd>
         </dl>
         <emu-alg>
-          1. If <ins>_n_ is a Number and </ins>_n_ is not a finite Number, then
-            1. Let _s_ be ! ToString(_n_).
-            1. Return the Record { [[PluralCategory]]: *"other"*, [[FormattedString]]: _s_ }.
-          1. <ins>If _n_ is an Object with the [[AmountData]] and [[FractionDigits]] internal slots, then</ins>
-            1. <ins>Set _pluralRules_.[[MinimumFractionDigits]] to _n_.[[FractionDigits]].</ins>
-            1. <ins>Set _pluralRules_.[[MaximumFractionDigits]] to _n_.[[FractionDigits]].</ins>
-          1. <ins>If _n_ is an Object with the [[AmountData]] internal slot, else let _res_ be FormatNumericToString(_pluralRules_, ℝ(_n_)) else let</ins> <del>Let</del> _res_ be FormatNumericToString(_pluralRules_, ℝ(_n_)).
+          1. <ins>If _n_ is a Number, then</ins>
+            1. If _n_ is not a finite Number, then
+              1. Let _s_ be ! ToString(_n_).
+              1. Return the Record { [[PluralCategory]]: *"other"*, [[FormattedString]]: _s_ }.
+          1. <ins>Else,</ins>
+            1. <ins>If _n_ is one of « *NaN*, *"Infinity", *"-Infinity"* », return the Record { [[PluralCategory]]: *"other"*, [[FormattedString]]: _n_ }.</ins>
+            1. Set _pluralRules_.[[MinimumFractionDigits]] to CountFractionDigits(_n_).</ins>
+          1. Let _res_ be FormatNumericToString(_pluralRules_, ℝ(_n_)).
           1. Let _s_ be _res_.[[FormattedString]].
           1. Let _locale_ be _pluralRules_.[[Locale]].
           1. Let _type_ be _pluralRules_.[[Type]].
