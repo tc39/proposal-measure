@@ -42,7 +42,7 @@ A big question is how we should handle precision. When constructing an Amount, b
 The object prototype would provide the following methods:
 
 * `toString()`: Returns a string representation of the measurement with any unit put in brackets (e.g., `"1.23[kg]`).
-* `toLocaleString()`: Return a string representation appropriate to the locale (e.g., `"1,23[kg]"` in locales that use a comma as a fraction separator)
+* `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator)
 * `with(opts)`: Represent the same underlying mathematical value, possibly with different precision.
 
 ### Examples
