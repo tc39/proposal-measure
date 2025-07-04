@@ -69,7 +69,7 @@ a.toString({ numberOnly: true }); // "42.7"
 
 #### Rounding
 
-If one downgrades the precision of a Measurement, rounding will occur. (Upgrading just adds trailing zeroes.)
+If one downgrades the precision of an Amount, rounding will occur. (Upgrading just adds trailing zeroes.)
 
 ```js
 let a = new Amount("123.456");
