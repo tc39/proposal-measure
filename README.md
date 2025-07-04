@@ -85,7 +85,7 @@ a.with({ significantDigits: 5, roundingMode: "truncate" }).toString(); // "123.4
 
 ## Units
 
-A core piece of functionality for the Measure proposal is to support units (`mile`, `kilogram`, etc.) as well as currency (`EUR`, `USD`, etc.). One can construct these
+A core piece of functionality for the proposal is to support units (`mile`, `kilogram`, etc.) as well as currency (`EUR`, `USD`, etc.). One can construct these
 
 
 ## Related but out-of-scope features
