@@ -16,6 +16,8 @@ Common user needs that can be addressed by a robust API for measurements include
 
 * The need to keep track of the precision of measured values. A measurement value represented with a large number of significant figures can imply that the measurements themselves are more precise than the apparatus used to take the measurement can support.
 
+* The need to represent currency values. Often users will want to keep track of money values together with the currency in which those values are denominated.
+
 * The need to format measurements into string representations
 
 ## Description
