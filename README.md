@@ -85,10 +85,10 @@ Measure is intended to be a small, straightforwardly implementable kernel of fun
 
 Below is a list of mathematical operations that one could consider supporting. However, to avoid confusion and ambiguity about the meaning of propagating precision in arithmetic operations, *we do not intend to support mathematical operations*. A natural source of data would be the [CLDR data](https://github.com/unicode-org/cldr/blob/main/common/supplemental/units.xml) for both our unit names and the conversion constants are as in CLDR. One could conceive of operations such as:
 
-* raising a Measurement to an exponent
-* multiply/divide a Measurement by a scalar
-* Add/subtract two Measurements of the same dimension
-* multiply/divide a Measurement by another Measurement
+* raising an Amount to an exponent
+* multiply/divide an Amount by a scalar
+* Add/subtract two Amounts of the same dimension
+* multiply/divide an Amount by another Amount
 * Convert between scales (e.g., convert from grams to kilograms)
 
 could be imagined, but are out-of-scope in this proposal. This proposal focuses on on the numeric core that future proposals can build on.
