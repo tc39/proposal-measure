@@ -36,7 +36,7 @@ A big question is how we should handle precision. When constructing an Amount, b
 
 ### Constructor
 
-* `new Measure(value)`. Constructs a Measure with the digit String `value` as the numerical value of the Measure.
+* `new Amount(value[, options])`. Constructs an Amount with the mathematical value of `value`, and optional `options`.
 
 The object prototype would provide the following methods:
 
