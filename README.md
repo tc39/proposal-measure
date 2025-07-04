@@ -57,7 +57,7 @@ a.significantDigits; // 6
 a.with({ fractionDigits: 4 }).toString(); // "123.4560"
 ```
 
-Notice that "upgrading" the precision of a Measurement essentially appends trailing zeroes to the number.
+Notice that "upgrading" the precision of an Amount appends trailing zeroes to the number.
 
 Here's an example with units:
 
