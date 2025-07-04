@@ -89,7 +89,7 @@ A core piece of functionality for the Measure proposal is to support units (`mil
 
 ## Related but out-of-scope features
 
-Measure is intended to be a small, straightforwardly implementable kernel of functionality for JavaScript programmers that could perhaps be expanded upon in a follow-on proposal if data warrants. Some features that one might imagine belonging to Measure are natural and understandable, but are currently out-of scope. Here are the features:
+Amount is intended to be a small, straightforwardly implementable kernel of functionality for JavaScript programmers that could perhaps be expanded upon in a follow-on proposal if data warrants. Some features that one might imagine belonging to Amount are natural and understandable, but are currently out-of scope. Here are the features:
 
 ### Mathematical operations
 
