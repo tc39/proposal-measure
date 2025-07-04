@@ -41,7 +41,7 @@ A big question is how we should handle precision. When constructing an Amount, b
 
 The object prototype would provide the following methods:
 
-* `toString()`: Returns a string representation of the measurement with any unit put in brackets (e.g., `"1.23[kg]`).
+* `toString([ opts ])`: Returns a string representation of the measurement with any unit put in brackets (e.g., `"1.23[kg]`).
 * `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator)
 * `with(opts)`: Represent the same underlying mathematical value, possibly with different precision.
 
@@ -57,6 +57,14 @@ a.with({ fractionDigits: 4 }).toString(); // "123.4560"
 ```
 
 Notice that "upgrading" the precision of a Measurement essentially appends trailing zeroes to the number.
+
+Here's an example with units:
+
+```js
+let a = new Amount("42.7", { unit: "kg" });
+a.toString(); // "42.7[kg]"
+a.toString({ numberOnly: true }); // "42.7"
+```
 
 #### Rounding
 
