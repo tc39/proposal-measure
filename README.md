@@ -96,7 +96,11 @@ could be imagined, but are out-of-scope in this proposal. This proposal focuses 
 
 ### Unit conversion
 
-One might want to convert a Measurement from one unit (e.g., miles) to another (e.g., kilometers). However, we envision that functionality as part of the [Smart Units](https://github.com/tc39/proposal-smart-unit-preferences) proposal. This implies that converting from unit to another is not supported, as well as converting measurements between scales (e.g., converting grams to kilograms). Our work here in the Measure proposal is designed to be a foundation for such ideas.
+One might want to convert an Amount from one unit (e.g., miles) to another (e.g., kilometers).
+We envision that functionality to be potentially introduced as part of the [Smart Units](https://github.com/tc39/proposal-smart-unit-preferences) proposal.
+This implies that converting from unit to another is not supported,
+as well as converting amounts between scales (e.g., converting grams to kilograms).
+Our work here in this proposal is designed to provide a foundation for such ideas.
 
 ## Related/See also
 
