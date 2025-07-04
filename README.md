@@ -25,6 +25,7 @@ We propose creating a new `Amount` API, whose values will be immutable and have 
 Note: ⚠️  All property/method names up for bikeshedding.
 
 * `value` (String): The numerical value of the measurement, representing an exact mathematical value;
+* `currency` (String or undefined): The currency code with which number should be understood (with *undefined* indicating "none supplied")
 * `unit` (String or undefined): The unit of measurement with which number should be understood (with *undefined* indicating "none supplied")
 * `significantDigits` (Number): how many significant digits does this value contain? (Should be a positive integer)
 * `fractionalDigits` (Number): how many digits are required to fully represent the part of the fractional part of the underlying mathematical value. (Should be a non-negative integer.)
