@@ -47,7 +47,8 @@ The object prototype would provide the following methods:
 
 ### Examples
 
-Let's construct a Measurement, query its properties, and render it. First, we'll work with a bare number (no unit):
+Let's construct an Amount, query its properties, and render it.
+First, we'll work with a bare number (no unit):
 
 ```js
 let a = new Amount("123.456");
