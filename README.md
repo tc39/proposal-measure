@@ -47,8 +47,8 @@ A big question is how we should handle precision. When constructing an Amount, b
 The object prototype would provide the following methods:
 
 * `toString([ options ])`: Returns a string representation of the amount.
-  By default, returns a digit string.
-  With `options: 'long'`, returns a digits string together with the normalized unit or currency in square brackets (e.g., `"1.23[kg]`).
+  By default, returns a digit string together with the unit/currency in square brackets (e.g., `"1.23[kg]`).
+  With `options: 'short'`, returns a digits string only, without unit.
 * `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator)
 * `with(options)`: Create a new Amount based on this one,
   together with additional options.
