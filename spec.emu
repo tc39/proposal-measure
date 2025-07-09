@@ -292,8 +292,15 @@ location: https://github.com/tc39/proposal-measure/
         1. Set _O_.[[Value]] to _roundedValue_.
         1. Set _O_.[[SignificantDigits]] to _significantDigits_.
         1. Set _O_.[[FractionDigits]] to _fractionDigits_.
-        1. If _unit_ is a String, set _O_.[[Unit]] to toLowercase(StringToCodePoints(_unit_)).
-        1. If _currency_ is a String, set _O_.[[Currency]] to toUppercase(StringToCodePoints(_unit_)).
+        1. If _unit_ is a String, then
+          1. If _unit_ is *""*, throw a *RangeError* exception.
+          1. If _unit_ contains a non-ASCII-alphanumeric character, throw a *RangeError* exception.
+          1. Set _O_.[[Unit]] to CodePointsToString(toLowercase(StringToCodePoints(_unit_))).
+        1. If _currency_ is a String, then
+          1. If the string length of _currency_ is not 3, throw a *RangeError* exception.
+          1. Let _uppercased_ be CodePointsToString(toUppercase(StringToCodePoints(_currency_))).
+          1. If _currency_ is not string equal to _uppercased_, throw a *RangeError* exception.
+          1. Set _O_.[[Currency]] to _uppercased_.
         1. Return _O_.
       </emu-alg>
       <emu-note>
