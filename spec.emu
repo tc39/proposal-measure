@@ -396,7 +396,7 @@ location: https://github.com/tc39/proposal-measure/
       1. Let _N_ be OrdinaryObjectCreate(*"%Amount.prototype%"*, « [[Value]], [[SignificantDigits]], [[FractionDigits]], [[Unit]], [[Currency]] »).
       1. Set _N_.[[Value]] to _O_.[[Value]].
       1. Set _N_.[[Unit]] to _O_.[[Unit]].
-      1. Set _N_.[[Currency]] to _N_.[[Currency]].
+      1. Set _N_.[[Currency]] to _O_.[[Currency]].
       1. Set _N_.[[FractionDigits]] to ℝ(_fractionDigits_).
       1. Set _N_.[[SignificantDigits]] to ℝ(_significantDigits_).
       1. Return _N_.
