@@ -88,9 +88,18 @@ let b = new Amount("123.456");
 a.with({ significantDigits: 5, roundingMode: "truncate" }).toString(); // "123.45"
 ```
 
-## Units
+## Units (including currency)
 
-A core piece of functionality for the proposal is to support units (`mile`, `kilogram`, etc.) as well as currency (`EUR`, `USD`, etc.). One can construct these
+A core piece of functionality for the proposal is to support units (`mile`, `kilogram`, etc.) as well as currency (`EUR`, `USD`, etc.). An Amount need not have a unit/currency, and if it does, it has one or the other (not both). Example:
+
+```js
+let a = new Amount("123.456", { unit: "kg" }); // 123.456 kilograms
+let b = new Amount("42.55", { currency: "EUR" }); // 42.55 Euros
+```
+
+When serializing an Amount that has a unit/currency marker, units are automatically rendered in lowercase and currency always in uppercase.
+
+Note that, currently, no meaning is specified for units. You can use `"ABCDEFG"` as a currency and `"keelogramz"` as a unit.
 
 
 ## Related but out-of-scope features
