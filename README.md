@@ -127,9 +127,13 @@ This implies that converting from unit to another is not supported,
 as well as converting amounts between scales (e.g., converting grams to kilograms).
 Our work here in this proposal is designed to provide a foundation for such ideas.
 
+### Derived units
+
+Some units can derive other units, such as square meters and cubic yards (to mention only a couple!). Support for such units is currently out-of-scope for this proposal.
+
 ### Compound units
 
-Some units can be combined. In the US, it is common to express the heights of people in terms of feet and inches, rather than a non-integer number of feet or a "large" number of inches. For instance, one would say commonly express a height of 71 inches as "5 feet 11 inches" rather than "71 inches" or "5.92 feet". Thus, one would naturally want to support "foot-and-inch" as a compound unit, derivable from a measurement in terms of feet or inches. Since this is closely related to unit conversion, we prefer to see this functionality in Smart Units.
+Some units can be combined. In the US, it is common to express the heights of people in terms of feet and inches, rather than a non-integer number of feet or a "large" number of inches. For instance, one would say commonly express a height of 71 inches as "5 feet 11 inches" rather than "71 inches" or "5.92 feet". Thus, one would naturally want to support "foot-and-inch" as a compound unit, derivable from a measurement in terms of feet or inches. Likewise, combining units to express, say, velocity (miles per hour) or density (grams per cubic centimeter) also falls under this umbrella.  Since this is closely related to unit conversion, we prefer to see this functionality in Smart Units.
 
 ## Related/See also
 
