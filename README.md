@@ -48,7 +48,8 @@ The object prototype would provide the following methods:
 
 * `toString([ opts ])`: Returns a string representation of the measurement with any unit put in brackets (e.g., `"1.23[kg]`).
 * `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator)
-* `with(opts)`: Represent the same underlying mathematical value, possibly with different precision.
+* `with(options)`: Create a new Amount based on this one,
+  together with additional options.
 
 ### Examples
 
