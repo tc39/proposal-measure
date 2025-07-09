@@ -38,7 +38,11 @@ A big question is how we should handle precision. When constructing an Amount, b
 
 ### Constructor
 
-* `new Amount(value[, options])`. Constructs an Amount with the mathematical value of `value`, and optional `options`.
+* `new Amount(value[, options])`. Constructs an Amount with the mathematical value of `value`, and optional `options`, of which the following are supported (all being optional):
+  * `currency` or `unit` (String): a marker for the measurement (cannot supply both)
+  * `fractionDigits`: the number of fractional digits the mathematical value should have (can be less than, equal to, or greater than the actual number of fractional digits that the underlying mathematical value has when rendered as a decimal digit string)
+  * `significantDigits`: the number of significant digits that the mathematical value should have  (can be less than, equal to, or greater than the actual number of significant digits that the underlying mathematical value has when rendered as a decimal digit string)
+  * `roundingMode`: one of the seven supported Intl rounding modes. This option is used when the `fractionDigits` and `significantDigits` options are provided and rounding is necessary to ensure that the value really does have the specified number of fraction/significant digits.
 
 The object prototype would provide the following methods:
 
