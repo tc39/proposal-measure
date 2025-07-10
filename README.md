@@ -46,9 +46,10 @@ A big question is how we should handle precision. When constructing an Amount, b
 
 The object prototype would provide the following methods:
 
-* `toString([ options ])`: Returns a string representation of the amount.
-  By default, returns a digit string together with the unit/currency in square brackets (e.g., `"1.23[kg]`).
-  With `options: 'short'`, returns a digits string only, without unit.
+* `toString([ options ])`: Returns a string representation of the Amount.
+  By default, returns a digit string together with the unit/currency in square brackets (e.g., `"1.23[kg]`) if the Amount does have an amount; otherwise, just the bare numeric value.
+  With `options` specified (not undefined), we consult its `displayUnit` property, looking for three possible String values: `"auto"`, `"never"`, and `"always"`. With `"auto"` (the default), we do what was just described previously. With `displayUnit "never"`, we will never show the unit, even if the Amount does have one; and with `displayUnit: "always"` we will always show the unit, using `"1"` as the unit for Amounts without a unit (the "unit unit").
+
 * `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator)
 * `with(options)`: Create a new Amount based on this one,
   together with additional options.
