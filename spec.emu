@@ -293,7 +293,7 @@ location: https://github.com/tc39/proposal-measure/
         1. Set _O_.[[SignificantDigits]] to _significantDigits_.
         1. Set _O_.[[FractionDigits]] to _fractionDigits_.
         1. If _unit_ is a String, then
-          1. If _unit_ is *""*, throw a *RangeError* exception.
+          1. If _unit_ is the empty String, throw a *RangeError* exception.
           1. If _unit_ contains a non-ASCII-alphanumeric character, throw a *RangeError* exception.
           1. Set _O_.[[Unit]] to CodePointsToString(toLowercase(StringToCodePoints(_unit_))).
         1. If _currency_ is a String, then
