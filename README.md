@@ -103,7 +103,9 @@ let b = new Amount("42.55", { currency: "EUR" }); // 42.55 Euros
 
 When serializing an Amount that has a unit/currency marker, units are automatically rendered in lowercase and currency always in uppercase.
 
-Note that, currently, no meaning is specified for units. You can use `"ABCDEFG"` as a currency and `"keelogramz"` as a unit.
+Note that, currently, no meaning is specified for currencies or units.
+You can use `"XYZ"` as a currency or `"keelogramz"` as a unit.
+Calling `toLocaleString()` on an Amount with a unit not supported by Intl.NumberFormat will throw an Error.
 
 
 ## Related but out-of-scope features
