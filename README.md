@@ -50,7 +50,7 @@ The object prototype would provide the following methods:
   By default, returns a digit string together with the unit/currency in square brackets (e.g., `"1.23[kg]`) if the Amount does have an amount; otherwise, just the bare numeric value.
   With `options` specified (not undefined), we consult its `displayUnit` property, looking for three possible String values: `"auto"`, `"never"`, and `"always"`. With `"auto"` (the default), we do what was just described previously. With `displayUnit "never"`, we will never show the unit, even if the Amount does have one; and with `displayUnit: "always"` we will always show the unit, using `"1"` as the unit for Amounts without a unit (the "unit unit").
 
-* `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator)
+* `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator). The options are the same as those for `toString()` above.
 * `with(options)`: Create a new Amount based on this one,
   together with additional options.
 
