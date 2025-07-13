@@ -393,12 +393,20 @@ location: https://github.com/tc39/proposal-measure/
     <emu-alg>
       1. Let _O_ be the *this* value.
       1. Perform ? RequireInternalSlot(_O_, [[Value]]).
+      1. Perform ? RequireInternalSlot(_O_, [[Currency]]).
+      1. Perform ? RequireInternalSlot(_O_, [[Unit]]).
       1. Let _options_ be ? GetOptionsObject(_options_).
       1. Let _unit_ be ? GetOption(_options_, *"unit"*, ~string~, ~empty~, *undefined*).
       1. Let _currency_ be ? GetOption(_options_, *"currency"*, ~string~, ~empty~, *undefined*).
       1. Let _fractionDigits_ be ? GetOption(_options_, *"fractionDigits"*, ~number~, ~empty~, *undefined*).
       1. Let _significantDigits_ be ? GetOption(_options_, *"significantDigits"*, ~number~, ~empty~, *undefined*).
-      1. If _currency_ is not *undefined* and _unit_ is not *undefined*, throw a *RangeError* exception.
+      1. If _currency_ is not *undefined*, then
+        1. If _unit_ is not *undefined*, throw a *RangeError* exception.
+        1. If _O_.[[Currency]] is not *defined*, throw a *RangeError* exception.
+      1. If _unit_ is not *undefined*, then
+        1. If _currency_ is not *undefined*, throw a *RangeError* exception.
+        1. If _O_.[[Unit]] is not *undefined*, throw a *RangeError* exception.
+      1. NOTE: An Amount with a unit cannot be turned into an Amount with a currency, nor can an Amount with currency be turned into an Amount with a unit.
       1. If _fractionDigits_ is not *undefined*, then
         1. If _significantDigits_ is not *undefined*, throw a *RangeError* exception.
         1. If ℝ(_fractionDigits_) is not an integer, throw a *RangeError* exception.
