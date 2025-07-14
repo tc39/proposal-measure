@@ -141,29 +141,6 @@ location: https://github.com/tc39/proposal-measure/
         </emu-alg>
       </emu-clause>
 
-      <emu-clause id="sec-amount-roundtoamountdomain" type="abstract operation">
-        <h1>RoundToAmountDomain(
-          _v_: a mathematical value,
-          optional _roundingMode_: a rounding mode
-        ): a mathematical value
-        </h1>
-        <dl class="header">
-          <dt>description</dt>
-          <dd>It computes the closest approximation to a given mathematical value, rounded according to the given rounding mode.</dd>
-        </dl>
-        <emu-alg>
-          1. If _roundingMode_ is *undefined*, set _roundingMode_ to *"halfEven"*.
-          1. If _v_ = 0, return 0.
-          1. If v &lt; 0, then
-            1. Let _reverseRoundingMode_ be _roundingMode_.
-            1. If _roundingMode_ is *"floor"*, set _reverseRoundingMode_ to *"ceil"*.
-            1. If _roundingMode_ is *"ceil"*, set _reverseRoundingMode_ to *"floor"*.
-            1. Let _d_ be RoundToAmountDomain(–_v_, _reverseRoundingMode_).
-            1. Return –_d_.
-          1. Return ApplyRoundingModeToPositive(_v_, _roundingMode_).
-        </emu-alg>
-      </emu-clause>
-
       <emu-clause id="sec-amount-roundtofractionaldigits" type="abstract operation">
         <h1>RoundToFractionalDigits(
           _v_: a mathematical value,
@@ -348,7 +325,7 @@ location: https://github.com/tc39/proposal-measure/
             1. Let _b_ be 0.
             1. Let _n_ be 0.
           1. If |ExponentPart| is present, let _e_ be MV of |ExponentPart|. Otherwise, let _e_ be 0.
-          1. Return RoundToAmountDomain((_a_ + (_b_ × 10<sup>−_n_</sup>)) × 10<sup>_e_</sup>).
+          1. Return (_a_ + (_b_ × 10<sup>−_n_</sup>)) × 10<sup>_e_</sup>.
         </emu-alg>
         <emu-grammar>StrUnsignedDecimalLiteral ::: `.` DecimalDigits ExponentPart?</emu-grammar>
         <emu-alg>
@@ -356,13 +333,13 @@ location: https://github.com/tc39/proposal-measure/
           1. If |ExponentPart| is present, let _e_ be MV of |ExponentPart|. Otherwise, let _e_ be 0.
           1. Let _n_ be the number of code points in |DecimalDigits|.
           1. Let _newValue_ be _b_ × 10<sup>_e_ − _n_</sup>.
-          1. Return RoundToAmountDomain(_newValue_).
+          1. Return _newValue_.
         </emu-alg>
         <emu-grammar>StrUnsignedDecimalLiteral ::: DecimalDigits ExponentPart?</emu-grammar>
         <emu-alg>
           1. Let _a_ be MV of |DecimalDigits|.
           1. If |ExponentPart| is present, let _e_ be MV of |ExponentPart|. Otherwise, let _e_ be 0.
-          1. Return RoundToAmountDomain(_a_ × 10<sup>_e_</sup>).
+          1. Return _a_ × 10<sup>_e_</sup>.
         </emu-alg>
       </emu-clause>
     </emu-clause>
