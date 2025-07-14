@@ -154,6 +154,13 @@ location: https://github.com/tc39/proposal-measure/
         </dl>
         <emu-alg>
           1. If _roundingMode_ is *undefined*, set _roundingMode_ to *"halfEven"*.
+          1. If _v_ = 0, return 0.
+          1. If v &lt; 0, then
+            1. Let _reverseRoundingMode_ be _roundingMode_.
+            1. If _roundingMode_ is *"floor"*, set _reverseRoundingMode_ to *"ceil"*.
+            1. If _roundingMode_ is *"ceil"*, set _reverseRoundingMode_ to *"floor"*.
+            1. Let _d_ be RoundToFractionalDigits(–_v_, _n_, _reverseRoundingMode_).
+            1. Return –_d_.
           1. Let _e_ be the unique integer such that 10<sup>_e_</sup> ≤ _v_ < 10<sup>_e_+1</sup>.
           1. Let _pow_ be _e_ + _n_.
           1. Let _m_ be _v_ × 10<sup>–_pow_</sup>.
@@ -175,6 +182,13 @@ location: https://github.com/tc39/proposal-measure/
         </dl>
         <emu-alg>
           1. If _roundingMode_ is *undefined*, set _roundingMode_ to *"halfEven"*.
+          1. If _v_ = 0, return 0.
+          1. If v &lt; 0, then
+            1. Let _reverseRoundingMode_ be _roundingMode_.
+            1. If _roundingMode_ is *"floor"*, set _reverseRoundingMode_ to *"ceil"*.
+            1. If _roundingMode_ is *"ceil"*, set _reverseRoundingMode_ to *"floor"*.
+            1. Let _d_ be RoundToSignificantDigits(–_v_, _n_, _reverseRoundingMode_).
+            1. Return –_d_.
           1. Let _e_ be the unique integer such that 10<sup>_e_</sup> ≤ _v_ < 10<sup>_e_+1</sup>.
           1. If _n_ ≤ _e_, then
             1. Let _pow_ be _e_ - _n_.
