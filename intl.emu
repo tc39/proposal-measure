@@ -201,8 +201,7 @@
         1. <ins>If _unit_ is not *undefined* and IsWellFormedUnitIdentifier(_unit_) is *false*, throw a *RangeError* exception.</ins>
         1. Let _unitDisplay_ be ? GetOption(_options_, *"unitDisplay"*, ~string~, « *"short"*, *"narrow"*, *"long"* », *"short"*).
         1. If _style_ is *"currency"*, then
-          1. <ins>If _currency_ is *undefined*, throw a *RangeError* exception.</ins>
-          1. Set _intlObj_.[[Currency]] to the ASCII-uppercase of _currency_.
+          1. <ins>If _currency_ is not *undefined*, set <del>Set</del> _intlObj_.[[Currency]] to the ASCII-uppercase of _currency_.
           1. Set _intlObj_.[[CurrencyDisplay]] to _currencyDisplay_.
           1. Set _intlObj_.[[CurrencySign]] to _currencySign_.
         1. If _style_ is *"unit"*, then
