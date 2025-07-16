@@ -434,9 +434,11 @@ location: https://github.com/tc39/proposal-measure/
       1. Let _O_ be the the *this* value.
       1. Perform ? RequireInternalSlot(_O_, [[Value]]).
       1. Perform ? RequireInternalSlot(_O_, [[FractionDigits]]).
-      1. If _O_ has the [[Unit]] internal slot, throw a *TypeError* exception.
-      1. If _O_ has the [[Currency]] internal slot, throw a *TypeError* exception.
+      1. Perform ? RequireInternalSlot(_O_, [[Unit]]).
+      1. Perform ? RequireInternalSlot(_O_, [[Currency]]).
       1. If _hint_ is not in « *"default"*, *"number"*, *"string"* », throw a *RangeError* exception.
+      1. If _O_.[[Unit]] is not *undefined*, throw a *TypeError* exception.
+      1. If _O_.[[Currency]] is not *undefined*, throw a *TypeError* exception.
       1. Let _mv_ be _O_.[[Value]].
       1. If _hint_ is *"string"*, then
         1. Let _fractionDigits_ be _O_.[[FractionDigits]].
