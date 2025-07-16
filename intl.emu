@@ -73,12 +73,12 @@
           1. Set _patterns_ to _patterns_.[[&lt;_unit_>]].
           1. Set _patterns_ to _patterns_.[[&lt;_unitDisplay_>]].
         1. Else if _style_ is *"currency"*, then
-          1. <del>Let _currency_ be _numberFormat_.[[Currency]].</del>
-          1. <ins>If _numberFormat_.[[Currency]] is *undefined* and _x_.[[Currency]] is *undefined, throw a *TypeError* exception.</ins>
-          1. <ins>If _x_.[[Currency]] is *undefined*, let _currency_ be _x_.[[Currency]].</ins>
-          1. <ins>Else if _x_.[[Currency]] is *undefined*, let _currency_ be _numberFormat_.[[Currency]].</ins>
-          1. <ins>Else if _x_.[[Currency]] and _numberFormat_.[[Currency]] are equal strings, let _currency_ be _numberFormat_.[[Currency]].</ins>
-          1. <ins>Otherwise, throw a *TypeError* exception.</ins>
+          1. Let _currency_ be _numberFormat_.[[Currency]].
+          1. <ins>Let _fmtCurrency_ be _x_.[[Currency]].</ins>
+          1. <ins>If _fmtCurrency_ is not *undefined* and SameValueNonNumber(_currency_, _fmtCurrency_) is *false*, then</ins>
+            1. <ins>If _currency_ is not *undefined*, throw a *TypeError* exception.</ins>
+            1. <ins>Set _currency_ to _fmtCurrency_.</ins>
+          1. <ins>Else if _currency_ is *undefined*, throw a *TypeError* exception.</ins>
           1. Let _currencyDisplay_ be _numberFormat_.[[CurrencyDisplay]].
           1. Let _currencySign_ be _numberFormat_.[[CurrencySign]].
           1. Set _patterns_ to _patterns_.[[currency]].
