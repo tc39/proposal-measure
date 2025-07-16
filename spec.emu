@@ -134,8 +134,8 @@ location: https://github.com/tc39/proposal-measure/
           1. If _roundingMode_ is *"ceil" or *"expand"*, return _mHigh_.
           1. If _fraction_ < 0.5, return _mLow_.
           1. If _fraction_ > 0.5, return _mHigh_.
-          1. If _roundingMode_ is *"halfTrunc"*, return _mLow_.
-          1. If _roundingMode_ is *"halfExpand"*, return _mHigh_.
+          1. If _roundingMode_ is *"halfTrunc"* or *"halfFloor"*, return _mLow_.
+          1. If _roundingMode_ is *"halfExpand" or *"halfCeil"**, return _mHigh_.
           1. If _mLow_ is even, return _mLow_.
           1. Return _mHigh_.
         </emu-alg>
@@ -159,6 +159,8 @@ location: https://github.com/tc39/proposal-measure/
             1. Let _reverseRoundingMode_ be _roundingMode_.
             1. If _roundingMode_ is *"floor"*, set _reverseRoundingMode_ to *"ceil"*.
             1. If _roundingMode_ is *"ceil"*, set _reverseRoundingMode_ to *"floor"*.
+            1. If _roundingMode_ is *"halfCeil"*, set _reverseRoundingMode_ to *"halfFloor"*.
+            1. If _roundingMode_ is *"halfFloor"*, set _reverseRoundingMode_ to *"halfCeil"*.
             1. Let _d_ be RoundToFractionDigits(–_v_, _n_, _reverseRoundingMode_).
             1. Return –_d_.
           1. Let _e_ be the unique integer such that 10<sup>_e_</sup> ≤ _v_ < 10<sup>_e_+1</sup>.
