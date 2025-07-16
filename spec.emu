@@ -419,12 +419,10 @@ location: https://github.com/tc39/proposal-measure/
       1. If _unit_ is not *undefined*, then
         1. If _O_.[[Currency]] is not *undefined*, throw a *TypeError* exception.
         1. If _O_.[[Unit]] is *undefined*, throw a *TypeError* exception.
-        1. Set _unit_ to the ASCII-lowercase of _unit_.
         1. If _unit_ is not string equal to _O_.[[Unit]], throw a *TypeError* exception.
       1. If _currency_ is not *undefined*, then
         1. If _O_.[[Unit]] is not *undefined*, throw a *TypeError* exception.
         1. If _O_.[[Currency]] is *undefined*, throw a *TypeError* exception.
-        1. Set _currency_ to the ASCII-uppercase of _currency_.
         1. If _currency_ is not string equal to _O_.[[Currency]], throw a *TypeError* exception.
       1. Set _N_.[[Value]] to _value_.
       1. Set _N_.[[Unit]] to _unit_.
