@@ -438,10 +438,12 @@ location: https://github.com/tc39/proposal-measure/
       1. If _O_ has the [[Currency]] internal slot, throw a *TypeError* exception.
       1. If _hint_ is not in « *"default"*, *"number"*, *"string"* », throw a *RangeError* exception.
       1. Let _mv_ be _O_.[[Value]].
-      1. Let _fractionDigits_ be _O_.[[FractionDigits]].
-      1. Let _str_ be RenderMVWithFractionDigits(_mv_, _fractionDigits_).
-      1. If _hint_ is *"string"*, return _str_.
-      1. Otherwise, return ! ToNumber(_str_).
+      1. If _hint_ is *"string"*, then
+        1. Let _fractionDigits_ be _O_.[[FractionDigits]].
+        1. Let _str_ be RenderMVWithFractionDigits(_mv_, _fractionDigits_).
+        1. Return _str_.
+      1. Else,
+        1. Return the Number value for _mv_.
     </emu-alg>
   </emu-clause>
 </emu-clause>
