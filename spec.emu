@@ -416,7 +416,10 @@ location: https://github.com/tc39/proposal-measure/
         1. Set _value_ to RoundToFractionDigits(_value_, _fractionDigits_).
       1. Else if _significantDigits_ is not *undefined*, then
         1. Set _value_ to RoundToSignificantDigits(_value_, _significantDigits_).
+      1. Else throw a *TypeError* exception.
       1. Let _N_ be OrdinaryObjectCreate(*"%Amount.prototype%"*, « [[Currency]], [[FractionDigits]], [[SignificantDigits]], [[Unit]], [[Value]] »).
+      1. If _unit_ is not *undefined* and _O_.[[Currency]] is not *undefined*, throw a *TypeError* exception.
+      1. If _currency_ is not *undefined* and _O_.[[Unit]] is not *undefined*, throw a *TypeError* exception.
       1. Set _N_.[[Value]] to _value_.
       1. Set _N_.[[Unit]] to _unit_.
       1. Set _N_.[[Currency]] to _currency_.
