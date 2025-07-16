@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run build-loose -- --watch",
     "build": "npm run build-loose -- --strict",
-    "build-loose": "node -e 'fs.mkdirSync(\"build\", { recursive: true })' && ecmarkup --load-biblio @tc39/ecma262-biblio --verbose spec.emu build/index.html --lint-spec"
+    "build-loose": "ecmarkup --load-biblio @tc39/ecma262-biblio --load-biblio @tc39/ecma402-biblio --verbose --lint-spec spec.emu index.html"
   },
   "homepage": "https://github.com/tc39/template-for-proposals#readme",
   "repository": {
@@ -14,7 +14,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@tc39/ecma262-biblio": "^2.1.2775",
+    "@tc39/ecma262-biblio": "^2.1.2895",
+    "@tc39/ecma402-biblio": "^2.1.1185",
     "ecmarkup": "^20.0.0"
   },
   "engines": {
