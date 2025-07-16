@@ -380,13 +380,13 @@ location: https://github.com/tc39/proposal-measure/
       1. Let _s_ be RenderMVWithFractionDigits(_v_, _fractionDigits_).
       1. If _u_ is *undefined* and _c_ is *undefined*, then
         1. If _displayUnit_ is *"always"*, return the string concatenation of _s_, *"["*, *"1"*, and *"]"*.
-        1. Otherwise, return _s_.
+        1. Else, return _s_.
       1. Else if _u_ is *undefined*, then
         1. If _displayUnit_ is *"never"*, return _s_.
-        1. Otherwise, return the string concatenation of _s_, *"["*, _c_, and *"]"*.
-      1. Otherwise:
+        1. Else, return the string concatenation of _s_, *"["*, _c_, and *"]"*.
+      1. Else,
         1. If _displayUnit_ is *"never"*, return _s_.
-        1. Otherwise, return the string concatenation of _s_, *"["*, _u_, and *"]"*.
+        1. Else, return the string concatenation of _s_, *"["*, _u_, and *"]"*.
     </emu-alg>
   </emu-clause>
 
