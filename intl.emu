@@ -60,12 +60,12 @@
         1. If _style_ is *"percent"*, then
           1. Set _patterns_ to _patterns_.[[percent]].
         1. Else if _style_ is *"unit"*, then
-          1. <del>Let _unit_ be _numberFormat_.[[Unit]].</del>
-          1. <ins>If _numberFormat_.[[Unit]] is *undefined* and_x_.[[Unit]] is *undefined*, throw a *TypeError* exception.</ins>
-          1. <ins>If _numberFormat_.[[Unit]] is *undefined*, let _unit_ be _x_.[[Unit]].</ins>
-          1. <ins>Else if _x_.[[Unit]] is *undefined*, let _unit_ be _numberFormat_.[[Unit]].</ins>
-          1. <ins>Else if _x_.[[Unit]] and _numberFormat_.[[Unit]] are equal strings, let _unit_ be _numberFormat_.[[Unit]].</ins>
-          1. <ins>Otherwise, throw a *TypeError* exception.</ins>
+          1. Let _unit_ be _numberFormat_.[[Unit]].
+          1. <ins>Let _fmtUnit_ be _x_.[[Unit]].</ins>
+          1. <ins>If _fmtUnit_ is not *undefined* and SameValueNonNumber(_unit_, _fmtUnit_) is *false*, then</ins>
+            1. <ins>If _unit_ is not *undefined*, throw a *TypeError* exception.</ins>
+            1. <ins>Set _unit_ to _fmtUnit_.</ins>
+          1. <ins>Else if _unit_ is *undefined*, throw a *TypeError* exception.</ins>
           1. Let _unitDisplay_ be _numberFormat_.[[UnitDisplay]].
           1. Set _patterns_ to _patterns_.[[unit]].
           1. If _patterns_ doesn't have a field [[&lt;_unit_>]], then
