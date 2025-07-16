@@ -308,8 +308,8 @@ location: https://github.com/tc39/proposal-measure/
         1. Set _O_.[[Value]] to _roundedValue_.
         1. Set _O_.[[SignificantDigits]] to _significantDigits_.
         1. Set _O_.[[FractionDigits]] to _fractionDigits_.
-        1. If _unit_ is not *undefined*, set _O_.[[Unit]] to the ASCII-lowercase of _unit_.
-        1. If _currency_ is not *undefined*, set _O_.[[Currency]] to the ASCII-uppercase of _currency_.
+        1. If _unit_ is not *undefined*, set _O_.[[Unit]] to _unit_.
+        1. If _currency_ is not *undefined*, set _O_.[[Currency]] to _currency_.
         1. Return _O_.
       </emu-alg>
       <emu-note>
