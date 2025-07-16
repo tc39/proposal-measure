@@ -1,6 +1,6 @@
 # Representing Measures
 
-**Stage**: 1
+**Stage**: 2
 
 **Champion**: Ben Allen [@ben-allen](https://github.com/ben-allen)
 
