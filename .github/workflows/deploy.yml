@@ -1,26 +1,19 @@
-name: Deploy gh-pages
+name: Deploy spec
 
-permissions:
-  contents: write
-
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: ljharb/actions/node/install@main
-      name: 'nvm install lts/* && npm install'
-      with:
-        node-version: lts/*
-    - run: npm run build
-    - uses: JamesIves/github-pages-deploy-action@v4.7.3
-      with:
-        branch: gh-pages
-        folder: .
-        clean: true
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "22.x"
+      - run: npm install
+      - run: npm run build
+      - name: commit changes
+        uses: elstudio/actions-js-build/commit@v4
+        with:
+          commitMessage: "fixup: [spec] `npm run build`"
