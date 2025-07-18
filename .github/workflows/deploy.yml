@@ -1,5 +1,8 @@
 name: Deploy gh-pages
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
