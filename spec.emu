@@ -406,11 +406,11 @@ location: https://github.com/tc39/proposal-measure/
       1. Perform ? RequireInternalSlot(_O_, [[Currency]]).
       1. Perform ? RequireInternalSlot(_O_, [[Unit]]).
       1. Perform ? RequireInternalSlot(_O_, [[Value]]).
-      1. Set _options_ to ? GetAmountOptions(_options_).
-      1. Let _unit_ be _options_.[[Unit]].
-      1. Let _currency_ be _options_.[[Currency]].
-      1. Let _fractionDigits_ be _options_.[[FractionDigits]].
-      1. Let _significantDigits_ be _options_.[[SignificantDigits]].
+      1. Let _processedOptions_ be ? GetAmountOptions(_options_).
+      1. Let _unit_ be _processedOptions_.[[Unit]].
+      1. Let _currency_ be _processedOptions_.[[Currency]].
+      1. Let _fractionDigits_ be _processedOptions_.[[FractionDigits]].
+      1. Let _significantDigits_ be _processedOptions_.[[SignificantDigits]].
       1. Let _value_ be _O_.[[Value]].
       1. If _fractionDigits_ is not *undefined*, set _value_ to RoundToFractionDigits(_value_, _fractionDigits_).
       1. Else if _significantDigits_ is not *undefined*, set _value_ to RoundToSignificantDigits(_value_, _significantDigits_).
