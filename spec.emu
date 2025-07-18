@@ -444,14 +444,16 @@ location: https://github.com/tc39/proposal-measure/
       1. Perform ? RequireInternalSlot(_O_, [[Unit]]).
       1. Perform ? RequireInternalSlot(_O_, [[Currency]]).
       1. If _hint_ is not in « *"default"*, *"number"*, *"string"* », throw a *RangeError* exception.
-      1. If _O_.[[Unit]] is not *undefined*, throw a *TypeError* exception.
-      1. If _O_.[[Currency]] is not *undefined*, throw a *TypeError* exception.
       1. Let _mv_ be _O_.[[Value]].
       1. If _hint_ is *"string"*, then
         1. Let _fractionDigits_ be _O_.[[FractionDigits]].
         1. Let _str_ be RenderMVWithFractionDigits(_mv_, _fractionDigits_).
-        1. Return _str_.
+        1. If _O_.[[Unit]] is *undefined* and _O_.[[Currency]] is *undefined*, return _str_.
+        1. Else if _O_.[[Unit]] is *undefined*, return the string concatenation of _str_, *"["*, _O_.[[Currency]], and *"]"*.
+        1. Otherwise, return the string concatenation of _str_, *"["*, _O_.[[Unit]], and *"]"*.
       1. Else,
+        1. If _O_.[[Unit]] is not *undefined*, throw a *TypeError* exception.
+        1. If _O_.[[Currency]] is not *undefined*, throw a *TypeError* exception.
         1. Return the Number value for _mv_.
     </emu-alg>
   </emu-clause>
