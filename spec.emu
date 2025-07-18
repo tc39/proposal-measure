@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="./spec.js"></script>
 <pre class="metadata">
-title: Measure
+title: Amount
 status: proposal
 stage: 2
 contributors: Ben Allen, Eemeli Aro, Jesse Alama
