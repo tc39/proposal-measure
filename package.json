@@ -16,7 +16,7 @@
   "devDependencies": {
     "@tc39/ecma262-biblio": "^2.1.2895",
     "@tc39/ecma402-biblio": "^2.1.1185",
-    "ecmarkup": "^20.0.0"
+    "ecmarkup": "^21.3.1"
   },
   "engines": {
     "node": ">= 12"
