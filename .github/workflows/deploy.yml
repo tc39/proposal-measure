@@ -16,8 +16,8 @@ jobs:
       with:
         node-version: lts/*
     - run: npm run build
-    - uses: JamesIves/github-pages-deploy-action@v4.3.3
+    - uses: JamesIves/github-pages-deploy-action@v4.7.3
       with:
         branch: gh-pages
-        folder: build
+        folder: .
         clean: true
