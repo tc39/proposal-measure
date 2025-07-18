@@ -1,4 +1,4 @@
-# Representing Measures
+# Representing Amounts
 
 **Stage**: 2
 
