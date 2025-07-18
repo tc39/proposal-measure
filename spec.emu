@@ -371,7 +371,7 @@ location: https://github.com/tc39/proposal-measure/
       1. Let _O_ be the *this* value.
       1. Perform ? RequireInternalSlot(_O_, [[Value]]).
       1. Perform ? RequireInternalSlot(_O_, [[FractionDigits]]).
-      1. Let _options_ be ? GetOptionsObject(_options_).
+      1. Set _options_ to ? GetOptionsObject(_options_).
       1. Let _displayUnit_ be ? GetOption(_options_, *"displayUnit"*, ~string~, « *"always"*, *"auto"*, *"never"* », *"auto"*).
       1. Let _c_ be _O_.[[Currency]].
       1. Let _u_ be _O_.[[Unit]].
