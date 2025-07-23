@@ -141,6 +141,60 @@ Some units can derive other units, such as square meters and cubic yards (to men
 
 Some units can be combined. In the US, it is common to express the heights of people in terms of feet and inches, rather than a non-integer number of feet or a "large" number of inches. For instance, one would say commonly express a height of 71 inches as "5 feet 11 inches" rather than "71 inches" or "5.92 feet". Thus, one would naturally want to support "foot-and-inch" as a compound unit, derivable from a measurement in terms of feet or inches. Likewise, combining units to express, say, velocity (miles per hour) or density (grams per cubic centimeter) also falls under this umbrella.  Since this is closely related to unit conversion, we prefer to see this functionality in Smart Units.
 
+## Prior art
+
+A number of languages have Amount-like functionality in their standard library, or even built in. (See also [#43](https://github.com/tc39/proposal-measure/issues/43).) Many of them also offer a form of arithmetic on their Amount-like values, though that is not in scope in this proposal.
+
+
+### [F#—Unit of measure](https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure)
+
+In F#, support for measurements is built in; indeed, syntax
+is available for expressing a number with a unit.
+
+```fsharp
+let l = 1.0<cm>
+let speed = 55.0<miles/hour>
+```
+
+### [Swift—Measurement](https://developer.apple.com/documentation/foundation/measurement)
+
+Swift includes Measurement in its core library
+`Foundation`. Example
+([credit](https://medium.com/@jpmtech/swift-measurement-api-73521627b65c))
+
+```swift
+import Foundation
+
+let weight: Measurement<UnitMass> = Measurement(value: 150, unit: .pounds)
+let speed: Measurement<UnitSpeed> = Measurement(value: 88, unit: .milesPerHour)
+let length: Measurement<UnitLength> = Measurement(value: 100, unit: .kilometers)
+let temperature: Measurement<UnitTemperature> = Measurement(value: 75, unit: .fahrenheit)
+```
+
+### [Java—Quantity](https://www.javadoc.io/doc/javax.measure/unit-api/1.0/javax/measure/Quantity.html)
+
+Java supports quantities in a JSR (Java Specification
+Request). Example
+([credit](https://codingtechroom.com/tutorial/java-mastering-javax-measure-guide)):
+
+```java
+public class MeasurementExample {
+    public static void main(String[] args) {
+        Quantity<Length> length = Quantities.getQuantity(5, Units.METRE);
+        System.out.println(length);
+    }
+}
+```
+
+### Other languages
+
+Many other languages, such as C, C#, C++, and Python have
+third-party libraries for representing a number together
+with a unit and a precision. Indeed, JavaScript has a
+popular package,
+[math.js](https://mathjs.org/docs/datatypes/units.html),
+that supports units.
+
 ## Related/See also
 
 * [Smart Units](https://github.com/tc39/proposal-smart-unit-preferences) (mentioned several times as a natural follow-on proposal to this one)
