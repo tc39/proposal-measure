@@ -27,7 +27,6 @@ We propose creating a new `Amount` API, whose values will be immutable and have 
 
 Note: ⚠️  All property/method names up for bikeshedding.
 
-* `currency` (String or undefined): The currency code with which number should be understood (with *undefined* indicating "none supplied")
 * `unit` (String or undefined): The unit of measurement with which number should be understood (with *undefined* indicating "none supplied")
 * `significantDigits` (Number): how many significant digits does this value contain? (Should be a positive integer)
 * `fractionalDigits` (Number): how many digits are required to fully represent the part of the fractional part of the underlying mathematical value. (Should be a non-negative integer.)
@@ -39,7 +38,7 @@ A big question is how we should handle precision. When constructing an Amount, b
 ### Constructor
 
 * `new Amount(value[, options])`. Constructs an Amount with the mathematical value of `value`, and optional `options`, of which the following are supported (all being optional):
-  * `currency` or `unit` (String): a marker for the measurement (cannot supply both)
+  * `unit` (String): a marker for the measurement
   * `fractionDigits`: the number of fractional digits the mathematical value should have (can be less than, equal to, or greater than the actual number of fractional digits that the underlying mathematical value has when rendered as a decimal digit string)
   * `significantDigits`: the number of significant digits that the mathematical value should have  (can be less than, equal to, or greater than the actual number of significant digits that the underlying mathematical value has when rendered as a decimal digit string)
   * `roundingMode`: one of the seven supported Intl rounding modes. This option is used when the `fractionDigits` and `significantDigits` options are provided and rounding is necessary to ensure that the value really does have the specified number of fraction/significant digits.
@@ -47,7 +46,7 @@ A big question is how we should handle precision. When constructing an Amount, b
 The object prototype would provide the following methods:
 
 * `toString([ options ])`: Returns a string representation of the Amount.
-  By default, returns a digit string together with the unit/currency in square brackets (e.g., `"1.23[kg]`) if the Amount does have an amount; otherwise, just the bare numeric value.
+  By default, returns a digit string together with the unit in square brackets (e.g., `"1.23[kg]`) if the Amount does have an amount; otherwise, just the bare numeric value.
   With `options` specified (not undefined), we consult its `displayUnit` property, looking for three possible String values: `"auto"`, `"never"`, and `"always"`. With `"auto"` (the default), we do what was just described previously. With `displayUnit "never"`, we will never show the unit, even if the Amount does have one; and with `displayUnit: "always"` we will always show the unit, using `"1"` as the unit for Amounts without a unit (the "unit unit").
 
 * `toLocaleString(locale[, options])`: Return a formatted string representation appropriate to the locale (e.g., `"1,23 kg"` in a locale that uses a comma as a fraction separator). The options are the same as those for `toString()` above.
@@ -98,14 +97,14 @@ A core piece of functionality for the proposal is to support units (`mile`, `kil
 
 ```js
 let a = new Amount("123.456", { unit: "kg" }); // 123.456 kilograms
-let b = new Amount("42.55", { currency: "EUR" }); // 42.55 Euros
+let b = new Amount("42.55", { unit: "EUR" }); // 42.55 Euros
 ```
 
-When serializing an Amount that has a unit/currency marker, units are automatically rendered in lowercase and currency always in uppercase.
-
-Note that, currently, no meaning is specified for currencies or units.
-You can use `"XYZ"` as a currency or `"keelogramz"` as a unit.
+Note that, currently, no meaning is specified within Amount for units.
+You can use `"XYZ"` or `"keelogramz"` as a unit.
 Calling `toLocaleString()` on an Amount with a unit not supported by Intl.NumberFormat will throw an Error.
+Unit identifiers consisting of three upper-case ASCII letters will be formatted with `style: 'currency'`,
+while all other units will be formatted with `style: 'unit'`.
 
 
 ## Related but out-of-scope features
